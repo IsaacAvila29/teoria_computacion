@@ -1,5 +1,3 @@
-type Estado = "q0" | "q1" | "q2" | "q3";
-type Simbolo = "0" | "1";
 const transitions = {
   q0: { 0: "q2", 1: "q1" }, // pares ceros, pares unos
   q1: { 0: "q3", 1: "q0" }, // pares ceros, impares unos
@@ -7,10 +5,10 @@ const transitions = {
   q3: { 0: "q1", 1: "q2" }, // impares ceros, impares unos
 };
 
-const estadoInicial: Estado = "q0";
-const estadosFinales = ["q0"];
+const estadoInicial = "q0";
+const estadosFinales = ["q0"]; //el estado de aceptacion
 
-function transicionExtendida(estado: Estado, input: string): Estado {
+function transicionExtendida(estado, input) {
   console.log(`\nδ*(${estado}, "${input}")`);
   console.log("─".repeat(35));
 
@@ -21,17 +19,14 @@ function transicionExtendida(estado: Estado, input: string): Estado {
         `Símbolo inválido: "${simbolo}". Solo se permiten "0" y "1".`,
       );
     }
-    const elSimbolo = simbolo as Simbolo;
-    const estadoSiguiente: Estado = transitions[estadoActual][
-      elSimbolo
-    ] as Estado;
-    console.log(`δ(${estadoActual}, "${elSimbolo}") = ${estadoSiguiente}`);
+    const estadoSiguiente = transitions[estadoActual][simbolo];
+    console.log(`δ(${estadoActual}, "${simbolo}") = ${estadoSiguiente}`);
     estadoActual = estadoSiguiente;
   }
   return estadoActual;
 }
 
-function esCadenaAceptada(cadena: string): boolean {
+function esCadenaAceptada(cadena) {
   const estadoFinal = transicionExtendida(estadoInicial, cadena);
   const aceptada = estadosFinales.includes(estadoFinal);
   console.log(
@@ -41,3 +36,9 @@ function esCadenaAceptada(cadena: string): boolean {
   );
   return aceptada;
 }
+
+// --- Pruebas ---
+esCadenaAceptada("110101");
+esCadenaAceptada("01");
+esCadenaAceptada("1100");
+esCadenaAceptada("111");
