@@ -1,4 +1,4 @@
-const expresionE = /^(?:a(?:bb)?|b(?:ba)?)$/;
+const expresionE = /^(a(bb)?|b(ba)?)$/;
 const casosE = [, "abb", "a", "b", "bba", "ab", "ba", "aa", "bb"];
 casosE.forEach((c) =>
   console.log(`${c} => ${expresionE.test(c) ? "aceptada" : "rechazada"}`),
