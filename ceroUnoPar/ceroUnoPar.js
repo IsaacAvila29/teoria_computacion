@@ -1,4 +1,4 @@
-// Definición del autómata
+//Definición del autómata
 //Isaac Avila Saenz (238925)
 
 /**
@@ -50,7 +50,7 @@ function esCadenaAceptada(cadena) {
 }
 
 // --- Pruebas ---
-esCadenaAceptada("110101");
+esCadenaAceptada("1101011");
 esCadenaAceptada("01");
 esCadenaAceptada("1100");
 esCadenaAceptada("111");
