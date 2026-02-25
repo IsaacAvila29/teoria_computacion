@@ -1,37 +1,25 @@
-//Primera expresión regular
-const regex = /^(abb|a|b|bba)$/;
+const expresionE = /^(?:a(?:bb)?|b(?:ba)?)$/;
+const casosE = [, "abb", "a", "b", "bba", "ab", "ba", "aa", "bb"];
+casosE.forEach((c) =>
+  console.log(`${c} => ${expresionE.test(c) ? "aceptada" : "rechazada"}`),
+);
 
-const casosPrueba = ["abb", "a", "b", "bba", "ab", "ba", "aa", "bb"];
+console.log("\n================================\n");
 
-casosPrueba.forEach((caso) => {
-  if (regex.test(caso)) {
-    console.log(`${caso} es aceptada por la expresión regular.`);
-  } else {
-    console.log(`${caso} no es aceptada por la expresión regular.`);
-  }
-});
+const expresionF = /^0*$/;
+const casosF = ["", "0", "00", "000", "1", "10", "01"];
+casosF.forEach((c) =>
+  console.log(
+    `${JSON.stringify(c)} => ${expresionF.test(c) ? "aceptada" : "rechazada"}`,
+  ),
+);
 
-// Segunda expresión regular
-const regex2 = /^0*$/;
-const casosPrueba2 = ["", "0", "00", "000", "1", "10", "01"];
+console.log("\n================================\n");
 
-casosPrueba2.forEach((caso) => {
-  if (regex2.test(caso)) {
-    console.log(`${caso} es aceptada por la expresión regular.`);
-  } else {
-    console.log(`${caso} no es aceptada por la expresión regular.`);
-  }
-});
-
-//Tercera expresión regular
-
-const regex3 = /^1+$/;
-const casosPrueba3 = ["", "1", "11", "111", "1111", "0", "10", "01"];
-
-casosPrueba3.forEach((caso) => {
-  if (regex3.test(caso)) {
-    console.log(`${caso} es aceptada por la expresión regular.`);
-  } else {
-    console.log(`${caso} no es aceptada por la expresión regular.`);
-  }
-});
+const expresionG = /^1+$/;
+const casosG = ["", "1", "11", "111", "1111", "0", "10", "01"];
+casosG.forEach((c) =>
+  console.log(
+    `${JSON.stringify(c)} => ${expresionG.test(c) ? "aceptada" : "rechazada"}`,
+  ),
+);
