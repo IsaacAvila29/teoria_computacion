@@ -49,8 +49,11 @@ function esCadenaAceptada(cadena) {
   return aceptada;
 }
 
-// --- Pruebas ---
+// Pruebas, tambien puedes hacer un foreach con un array de cadenas para probar varias a la vez
 esCadenaAceptada("1101011");
 esCadenaAceptada("01");
 esCadenaAceptada("1100");
 esCadenaAceptada("111");
+esCadenaAceptada(
+  "101010101010101010101010101010101010101010101010101001001110111010101010",
+);
