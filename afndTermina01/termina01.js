@@ -43,10 +43,61 @@ function simularAFND(cadena) {
   return estadosActuales.some((e) => afnd.estadosAceptacion.includes(e));
 }
 
-// Pruebas
-console.log(simularAFND("00101")); // true
-console.log(simularAFND("101")); // true
-console.log(simularAFND("0101")); // true
-console.log(simularAFND("10")); // false
-console.log(simularAFND("001")); // false
-console.log(simularAFND("")); // false
+// Función para mostrar paso a paso la ejecución
+function simularAFNDDetallado(cadena) {
+  console.log(`\nProcesando cadena: "${cadena}"`);
+  console.log("═".repeat(50));
+
+  let estadosActuales = [afnd.estadoInicial];
+  console.log(`Paso 0 - Estado inicial: [${estadosActuales}]\n`);
+
+  for (let i = 0; i < cadena.length; i++) {
+    const simbolo = cadena[i];
+    let nuevosCEstados = new Set();
+
+    console.log(`Paso ${i + 1} - Leyendo símbolo: '${simbolo}'`);
+    console.log(`Estados actuales: [${estadosActuales}]`);
+
+    for (let estado of estadosActuales) {
+      let proximos = afnd.transiciones[estado][simbolo] || [];
+      console.log(`  δ(${estado}, '${simbolo}') = [${proximos}]`);
+      proximos.forEach((e) => nuevosCEstados.add(e));
+    }
+
+    estadosActuales = Array.from(nuevosCEstados);
+    console.log(`Estados después de '${simbolo}': [${estadosActuales}]\n`);
+  }
+
+  const estaEnAceptacion = estadosActuales.some((e) =>
+    afnd.estadosAceptacion.includes(e),
+  );
+
+  console.log("═".repeat(50));
+  console.log(`Estados finales: [${estadosActuales}]`);
+  console.log(
+    `¿Está en estado de aceptación? ${estaEnAceptacion ? "SI" : "NO"}`,
+  );
+  console.log(
+    `Resultado: ${estaEnAceptacion} (La cadena ${estaEnAceptacion ? "SI" : "NO"} termina en "01")`,
+  );
+
+  return estaEnAceptacion;
+}
+
+// Pruebas detalladas
+console.log("SIMULACIONES DETALLADAS DEL AFND\n");
+
+simularAFNDDetallado("01"); // true - caso simple
+simularAFNDDetallado("001"); // false - termina en 1, no en 01
+simularAFNDDetallado("0101"); // true - termina en 01
+simularAFNDDetallado("10"); // false - "10" no es suficiente
+
+console.log("\n" + "═".repeat(50));
+console.log("PRUEBAS RAPIDAS");
+console.log("═".repeat(50));
+console.log("simularAFND('00101'):", simularAFND("00101")); // true
+console.log("simularAFND('0010'):", simularAFND("0010")); // false
+console.log("simularAFND('0101'):", simularAFND("0101")); // true
+console.log("simularAFND('10'):", simularAFND("10")); // false
+console.log("simularAFND('001'):", simularAFND("001")); // false
+console.log("simularAFND(''):", simularAFND("")); // false
